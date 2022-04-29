@@ -25,6 +25,7 @@
     },
     methods:{
       imageLoad(){
+        // 发射事件总线
         this.$bus.$emit('itemImageLoad')
       }
     }

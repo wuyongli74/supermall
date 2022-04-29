@@ -72,19 +72,34 @@
 
       // 2.请求商品数据
       this.getHomeGoods('pop');
-      // this.getHomeGoods('news');
-      // this.getHomeGoods('sell');
+      this.getHomeGoods('news');
+      this.getHomeGoods('sell');
 
-      // 3.监听item中图片加载完成
-      this.$bus.on('itemImageLoad', () => {
-        console.log('---');
-        this.$refs.scroll.refresh()
+    },
+    mounted() {
+
+      const refresh = this.debounce(this.$refs.scroll.refresh)
+
+      // 监听item中图片加载完成
+      this.$bus.$on('itemImageLoad', () => {
+        refresh()
+        // this.$refs.scroll.refresh()
       })
     },
     methods: {
       /**
        * 事件监听相关的方法
        */
+
+      debounce(func, delay) {
+        let timer = null;
+        return function (...args) {
+          if (timer) clearTimeout(timer);
+          timer = setTimeout(() => {
+            func.apply(this, args)
+          }, delay)
+        }
+      },
 
       tabClick(index) {
         switch (index) {
