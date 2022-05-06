@@ -29,6 +29,8 @@
 </template>
 
 <script>
+  import {getHomeMultidata, getHomeGoods} from "network/home";
+
   import HomeSwiper from "./childComps/HomeSwiper";
   import RecommendView from "./childComps/RecommendView";
   import FeatureView from "./childComps/FeatureView";
@@ -39,7 +41,6 @@
   import TabControl from "components/content/tabControl/TabControl";
   import GoogsList from "components/content/goods/GoogsList";
 
-  import {getHomeMultidata, getHomeGoods} from "network/home";
   import {debounce} from "common/utils";
 
 
@@ -82,8 +83,8 @@
 
       // 2.请求商品数据
       this.getHomeGoods('pop');
-      this.getHomeGoods('news');
-      this.getHomeGoods('sell');
+      // this.getHomeGoods('news');
+      // this.getHomeGoods('sell');
 
 
     },
@@ -167,6 +168,8 @@
 
           // 完成上拉加载更多
           this.$refs.scroll.finishPullUp()
+        }).catch(err => {
+          console.log(err);
         })
       }
     }

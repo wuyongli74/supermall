@@ -1,5 +1,5 @@
 <template>
-  <div class="goods-item">
+  <div class="goods-item" @click="itemClick">
     <img
       :src="goodsItem.goods_big_logo?goodsItem.goods_big_logo:'https://ww1.sinaimg.cn/large/007rAy9hgy1g24by9t530j30i20i2glm.jpg'"
       alt=""
@@ -23,10 +23,13 @@
         }
       }
     },
-    methods:{
-      imageLoad(){
+    methods: {
+      imageLoad() {
         // 发射事件总线
         this.$bus.$emit('itemImageLoad')
+      },
+      itemClick() {
+        this.$router.push('/detail/' + this.goodsItem.goods_id)
       }
     }
   }
